@@ -3,7 +3,7 @@ const path = require('path');
 module.exports = {
   entry: './src/js/index.js', // Main file
   output: {
-    filename: 'bundle.js',
+    filename: 'js/index.js',
     path: path.resolve(__dirname, 'dist'), // Output directory
   },
   mode: 'development', // Change to 'production' for optimizations

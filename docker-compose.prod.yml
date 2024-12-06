@@ -4,4 +4,4 @@ services:
   web:
     container_name: vanilla-spenpo-prod
     volumes:
-      - ./dist/bundle.js:/usr/local/apache2/htdocs/js/index.js
+      - ./dist/js/index.js:/usr/local/apache2/htdocs/js/index.js
