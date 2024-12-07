@@ -3,7 +3,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const path = require('path');
 
 module.exports = (_env, argv) => {
-  const isProduction = argv.mode === 'production';
+  const isProduction = argv.mode !== 'development';
 
   return {
     mode: isProduction ? 'production' : 'development',
@@ -19,9 +19,8 @@ module.exports = (_env, argv) => {
           test: /\.css$/,
           use: [
             // In production, use MiniCssExtractPlugin
-            isProduction && MiniCssExtractPlugin.loader,
             // In development, you might use 'style-loader' instead
-            !isProduction && 'style-loader',
+            isProduction ? MiniCssExtractPlugin.loader : 'style-loader',
             'css-loader'
           ]
         },
