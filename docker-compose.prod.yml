@@ -1,7 +1,0 @@
-version: '3.8'
-
-services:
-  web:
-    container_name: vanilla-spenpo-prod
-    volumes:
-      - ./dist/js/index.js:/usr/local/apache2/htdocs/js/index.js
