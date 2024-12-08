@@ -46,16 +46,16 @@ module.exports = (_env, argv) => {
       })
     ],
     // Development server configuration
-    devServer: {
-      // In development, serve from source
-      static: path.join(__dirname, 'src'),
-      // In production, serve from dist
-      ...(isProduction && { 
-        static: path.join(__dirname, 'dist') 
-      }),
-      hot: true,
-      open: true
-    },
+    // devServer: {
+    //   // In development, serve from source
+    //   static: path.join(__dirname, 'src'),
+    //   // In production, serve from dist
+    //   ...(isProduction && { 
+    //     static: path.join(__dirname, 'dist') 
+    //   }),
+    //   hot: true,
+    //   open: true
+    // },
   }
 }
 

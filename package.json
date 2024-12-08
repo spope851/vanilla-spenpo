@@ -4,9 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently \"webpack --watch\" \"vercel dev\"",
+    "dev": "concurrently \"webpack --mode development --watch\" \"vercel dev\"",
     "build": "webpack --mode production",
-    "start": "pnpm build && vercel dev --debug"
+    "start": "rm -rf dist && pnpm build && vercel dev --debug"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,6 @@
     "mini-css-extract-plugin": "^2.9.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
-    "webpack-cli": "^5.1.4",
-    "webpack-dev-server": "^5.1.0"
+    "webpack-cli": "^5.1.4"
   }
 }
