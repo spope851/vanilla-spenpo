@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "dev": "concurrently \"webpack --mode development --watch\" \"vercel dev\"",
     "build": "webpack --mode production",

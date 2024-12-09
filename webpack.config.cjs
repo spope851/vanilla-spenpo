@@ -45,17 +45,6 @@ module.exports = (_env, argv) => {
         filename: 'styles.css' // Output CSS file name
       })
     ],
-    // Development server configuration
-    // devServer: {
-    //   // In development, serve from source
-    //   static: path.join(__dirname, 'src'),
-    //   // In production, serve from dist
-    //   ...(isProduction && { 
-    //     static: path.join(__dirname, 'dist') 
-    //   }),
-    //   hot: true,
-    //   open: true
-    // },
   }
 }
 
