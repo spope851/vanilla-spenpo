@@ -1,7 +1,24 @@
 import './styles.css';
+import { navBar } from './nav.js'
+import { homePage } from './pages/home.js';
+import { Router } from './router.js';
+import { aboutPage } from './pages/about.js';
 
-fetch('/api/home').then(async res => {
-    const page = await res.json()
-    const root = document.getElementById('vanilla-spenpo-root')
-    root.innerHTML = `<h2>${page.title.rendered}</h2>` + page.content.rendered
-})
+const SvenRouter = new Router([
+    {
+        name: "",
+        component: [
+            navBar,
+            homePage
+        ]
+    },
+    {
+        name: "about",
+        component: [
+            navBar,
+            aboutPage
+        ]
+    }
+])
+
+export { SvenRouter }

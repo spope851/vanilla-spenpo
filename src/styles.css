@@ -1,3 +1,46 @@
+body {
+    margin: 0;
+}
+
 h1, h2 {
-    color: #404040
+    color: #404040;
+}
+
+.navList {
+    display: flex;
+    justify-content: space-evenly;
+    flex-grow: 1;
+    list-style: none;
+    padding: 10px;
+}
+
+.navList li {
+    height: 18px;
+}
+
+.navBar {
+    display: flex;
+    align-items: center;
+    background-color: #ccc;
+}
+
+[class^="spenpo-link-"] {
+    background-color: #00afaf;
+    color: #404040;
+    padding: 10px;
+    border-radius: 3px;
+    text-decoration: none;
+}
+
+#nav-home-btn {
+    border-radius: 0px;
+}
+
+#nav-home-btn h1 {
+    margin: 0;
+    line-height: 50px;
+}
+
+.content {
+    padding: 0 20px;
 }
