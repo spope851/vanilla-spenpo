@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "dev": "concurrently \"webpack --mode development --watch\" \"pnpm prepare:vercel && vercel dev\"",
-    "build": "pnpm run prepare:vercel && webpack --mode production",
+    "build": "webpack --mode production",
     "prepare:vercel": "node scripts/prepareVercelConfig.cjs",
     "start": "rm -rf dist && pnpm build && vercel dev --debug"
   },

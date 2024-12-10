@@ -1,24 +1,21 @@
 import './styles.css';
-import { navBar } from './nav.js'
-import { homePage } from './pages/home.js';
-import { Router } from './router.js';
-import { aboutPage } from './pages/about.js';
+import { NavBar } from './nav.js';
+import { Sven } from './utils/render.js';
+import { Router } from './utils/router.js';
+import { StaticPage } from './pages/static.js';
 
-const SvenRouter = new Router([
-    {
-        name: "",
-        component: [
-            navBar,
-            homePage
-        ]
-    },
-    {
-        name: "about",
-        component: [
-            navBar,
-            aboutPage
-        ]
-    }
+Sven.createRoot(document.getElementById('vanilla-spenpo-root'))
+
+const routes = [
+    {path: '/', slug: 'welcome'},
+    { path: '/about', slug: 'about'},
+    { path: '/work', slug: 'projects'},
+    { path: '/now', slug: 'now'},
+]
+
+Sven.render([
+    NavBar(), 
+    ...routes.map(route => StaticPage(route))
 ])
 
-export { SvenRouter }
+Router.notifySubscribers()
