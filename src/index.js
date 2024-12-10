@@ -14,7 +14,7 @@ const routes = [
 ]
 
 Sven.render([
-    NavBar(), 
+    NavBar(),
     ...routes.map(route => StaticPage(route))
 ])
 
