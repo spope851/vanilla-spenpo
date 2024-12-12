@@ -1,46 +1,61 @@
-import { createElement, createLink } from "./utils/dom.js";
+import { Link } from "./components/link.js";
 
-export const NavBar = () => {
-    const navBarHead = createLink('', '', [
-        {
-            name: 'id',
-            value: 'nav-home-btn'
+export const NavBar = ({ active }) => {
+    const navBarHead = {
+        component: Link,
+        props: {
+            href: '',
+            attrs: {
+                    id:
+                    'nav-home-btn'
+                ,
+                    href:
+                    ''
+            },
+            children: [{ tag: 'h1', text: 'Spencer Pope' }],
+            active: active === '/'
         },
-        {
-            name: 'href',
-            value: ''
-        }
-    ], [createElement('h1', 'Spencer Pope')])
-    
+    }
+
     const pages = [
         'about',
         'now',
         'work',
+        'nest',
         // 'blog',
         // 'contact'
     ];
     
     const createNavElement = (name) => {
-        const navLink = createLink(name)
-        const navEl = createElement('li', '', undefined, [navLink])
+        const navEl = {
+            tag: 'li',
+            children: [{ component: Link, props: { href: name, active: active.includes(name) } }]
+        }
         return navEl
     };
     
-    const navList = createElement('ul', '', [
-        {
-            name: "class",
-            value: `navList`
-        }
-    ], pages.map(name => createNavElement(name)));
-    
-    
-    return createElement('nav', '', [
-        {
-            name: "class",
-            value: `navBar`
-        }
-    ], [
-        navBarHead,
-        navList
-    ])
+    const navList = {
+        tag: 'ul',
+        attrs: 
+            {
+                class:
+                `navList`
+            }
+        , 
+        children: pages.map(name => createNavElement(name))
+    };
+
+    return {
+        tag: 'nav',
+        attrs:
+            {
+                class:
+                `navBar`
+            }
+        , 
+        children: [
+            navBarHead,
+            navList
+        ]
+    }
 }

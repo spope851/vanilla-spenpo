@@ -1,6 +1,8 @@
-import { Router } from './router.js'
+const RESTRICTED_ATTRIBUTES = [
+    'innerHTML'
+]
 
-const createElement = (tag, text, attrs, children) => {
+const createElement = (tag, text, attrs, listeners) => {
     const element = document.createElement(tag)
     if (text) {
         const textNode = document.createTextNode(text)
@@ -8,46 +10,31 @@ const createElement = (tag, text, attrs, children) => {
     }
     
     if (attrs) {
-        attrs.forEach(({ name, value }) => {
+        Object.entries(attrs).forEach(([ name, value ]) => {
+            if (RESTRICTED_ATTRIBUTES.includes(name)) return
             element.setAttribute(name, value)
+        })
+
+        RESTRICTED_ATTRIBUTES.forEach(attr => {
+            if (attrs[attr]) {
+                element[attr] = attrs[attr]
+            }
         })
     }
 
-    if (children) {
-        children.forEach(child => {
-            element.appendChild(child)
+    if (listeners) {
+        Object.entries(listeners).forEach(([ event, callback ]) => {
+            if (event.startsWith("DOM")) {
+                document.addEventListener(event, callback)
+            } else {
+                element.addEventListener(event, callback)
+            }
         })
     }
 
     return element
 };
 
-const createLink = (href, title, attrs, children) => {
-    const elAttrs = [
-        {
-            name: "href",
-            value: `/${href}`
-        },
-        {
-            name: "class",
-            value: `spenpo-link-${href}`
-        }
-    ]
-
-    if (attrs) elAttrs.push(...attrs)
-
-    const link = createElement('a', title || href, elAttrs, children)
-
-    // intercept click event to rerender the spa
-    link.addEventListener("click", (e) => {
-        e.preventDefault()
-        Router.navigate(`/${href}`)
-    })
-
-    return link
-}
-
 export {
-    createElement,
-    createLink
+    createElement
 }

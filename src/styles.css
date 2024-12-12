@@ -32,6 +32,14 @@ h1, h2 {
     text-decoration: none;
 }
 
+.active {
+    outline: solid 1px #ffffff;
+}
+
+.navBar a.active h1, .navBar a.active {
+    color: #ffffff;
+}
+
 #nav-home-btn {
     border-radius: 0px;
 }
