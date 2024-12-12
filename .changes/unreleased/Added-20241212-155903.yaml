@@ -1,0 +1,4 @@
+kind: Added
+body: 'package.json script for removing vercel.json changes before commit: prepare:commit.
+  updated readme'
+time: 2024-12-12T15:59:03.028444+08:00

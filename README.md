@@ -11,6 +11,7 @@
 * since we aren't using a framework, the dev server needs to be told about our serverless functions in vercel.json
 * the is the purpose of the `builds` key that is added to the file via prepareVercelConfig.cjs
 * do not commit the changes made by this script. Vercel treats all /api folders the same in production
+* to remove the changes before committing, run `pnpm prepare:commit`
 * if you make change to vercel.json that you want to commit, remove this part first:
 ``` json
 "builds": [
@@ -24,6 +25,7 @@
   }
 ]
 ```
+* also, remember to update the script so that your changes don't get overwritten
 * this way, Vercel deploys the project as it would any other, and locally, you can develop in a vercel-like envrionment, with webpack rebuilding the dist folder each time you save changes
 * `vercel --yes`
 * `pnpm dev`

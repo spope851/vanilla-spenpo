@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "concurrently \"webpack --mode development --watch\" \"pnpm prepare:vercel && vercel dev\"",
+    "dev": "concurrently \"webpack --mode development --watch\" \"pnpm prepare:dev && vercel dev\"",
     "build": "webpack --mode production",
-    "prepare:vercel": "node scripts/prepareVercelConfig.cjs",
+    "prepare:dev": "node scripts/prepareVercelConfig.cjs",
+    "prepare:commit": "VERCEL_ENV=production node scripts/prepareVercelConfig.cjs",
     "start": "rm -rf dist && pnpm build && vercel dev --debug"
   },
   "keywords": [],
