@@ -1,4 +1,4 @@
-import { Link } from "./components/link.js";
+import { Link } from "./link.js";
 
 export const NavBar = ({ active }) => {
     const navBarHead = {
