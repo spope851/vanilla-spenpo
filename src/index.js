@@ -1,6 +1,6 @@
 import './styles.css';
 import { NavBar } from './nav.js';
-import { Sven } from './utils/render.js';
+import Sven from './utils/sven.js';
 import { Router } from './utils/router.js';
 import { StaticPage } from './pages/static.js';
 import { Nest } from './components/nest.js';

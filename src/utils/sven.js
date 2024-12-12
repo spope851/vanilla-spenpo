@@ -91,4 +91,4 @@ const Sven = {
     }
 }
 
-export { Sven }
+export default Sven
