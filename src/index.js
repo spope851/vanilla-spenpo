@@ -8,19 +8,19 @@ import { Nest } from './components/nest.js';
 Sven.createRoot(document.getElementById('vanilla-spenpo-root'));
 
 const routes = [
-    { path: '/', component: StaticPage, props: {
+    { path: '/', tag: StaticPage, props: {
         slug: 'welcome'
     }},
-    { path: '/about', component: StaticPage, props: {
+    { path: '/about', tag: StaticPage, props: {
         slug: 'about'
     }},
-    { path: '/work', component: StaticPage, props: {
+    { path: '/work', tag: StaticPage, props: {
         slug: 'projects'
     }},
-    { path: '/now', component: StaticPage, props: {
+    { path: '/now', tag: StaticPage, props: {
         slug: 'now'
     }},
-    { path: '/nest', component: Nest },
+    { path: '/nest', tag: Nest },
 ];
 
 const Body = {
@@ -34,10 +34,12 @@ const renderPage = (path, isRerender = false) => {
     Body.reEvaluate(path)
     Sven.render({
         tag: 'div',
-        children: [
-            { component: NavBar, props: { active: path } },
-            Body.value,
-        ]
+        props: {
+            children: [
+                { tag: NavBar, props: { active: path } },
+                Body.value,
+            ]
+        }
     }, isRerender)
 };
 

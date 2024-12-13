@@ -4,17 +4,10 @@ export const StaticPage = ({ slug }) => {
     let state;
     const content = {
         tag: 'div',
-        attrs:
-            {
-                class:
-                "content"
-            }
-        ,
-        listeners:
-            {
-                DOMContentLoaded:
-                async () => {
-                    content.attrs.innerHTML = LOADING
+        props: {
+                class: "content",
+                DOMContentLoaded: async () => {
+                    content.props.innerHTML = LOADING
                     
                     const res = state || await fetch(`/api/page?slug=${slug}`).then(async res => {
                         const page = await res.json()
@@ -24,9 +17,9 @@ export const StaticPage = ({ slug }) => {
                         return state
                     })
                     
-                    content.attrs.innerHTML = res
+                    content.props.innerHTML = res
                 }
-            }
+        },
     }
     
     return content

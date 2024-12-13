@@ -1,0 +1,3 @@
+kind: Changed
+body: refactored render and createElement to only process tag and props
+time: 2024-12-13T22:35:18.40353+08:00

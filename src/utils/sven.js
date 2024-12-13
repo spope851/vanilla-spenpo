@@ -1,7 +1,40 @@
-import { createElement } from "./dom.js"
+const RESTRICTED_ATTRIBUTES = [
+    'innerHTML',
+    'children'
+];
 
 const Sven = {
     root: document.body,
+    createElement (tag, props = {}) {
+        if (typeof tag === 'function') {
+            const tree = tag(props)
+            this.render(tree)
+            return
+        }
+        
+        const element = document.createElement(tag)
+        
+        Object.entries(props).forEach(([ name, value ]) => {
+            if (RESTRICTED_ATTRIBUTES.includes(name)) return
+            else if ( typeof value === 'function') {
+                if (name.startsWith("DOM")) {
+                    document.addEventListener(name, value)
+                } else {
+                    element.addEventListener(name, value)
+                }
+            }
+            else element.setAttribute(name, value)
+        })
+
+        // RESTRICTED_ATTRIBUTES.forEach(attr => {
+        //     if (props[attr]) {
+        //         element[attr] = props[attr]
+        //     }
+        // })
+    
+        return element
+    },
+
     tree: null,
     traversalPointer: [],
     getCurrentTraversalNode () {
@@ -57,14 +90,16 @@ const Sven = {
     },
 
     render (tree, isRerender = false) {
-        const { tag, text, attrs, listeners, children, component, props } = tree
+        let element;
 
-        if (component) {
-            const json = component(props)
-            return this.render(json)
+        if (['string', 'number'].includes(typeof tree)) {
+            element = document.createTextNode(tree)
         }
 
-        const element = createElement(tag, text, attrs, listeners)
+        const { tag, props = {} } = tree
+
+        if (!element) element = this.createElement(tag, props)
+        if (!element) return
         
         if (isRerender) {
             const currentNode = this.getCurrentTraversalNode()
@@ -75,19 +110,16 @@ const Sven = {
             this.root.appendChild(element)
         }
 
-        this.updateTree(tree)
+        // this.updateTree(tree)
         
-        if (children) {
-            this.traversalPointer.push(0)
-            this.root = element
-            children.forEach((child, idx) => {
-                this.traversalPointer[this.traversalPointer.length - 1] = idx
-                // this.isRenderingChildren = true
-                this.render(child)
-            })
-            this.traversalPointer.pop()
-            this.root = element.parentElement
-        }
+        this.traversalPointer.push(0)
+        this.root = element
+        props.children?.forEach((child, idx) => {
+            this.traversalPointer[this.traversalPointer.length - 1] = idx
+            this.render(child)
+        })
+        this.traversalPointer.pop()
+        this.root = element.parentElement
     }
 }
 
