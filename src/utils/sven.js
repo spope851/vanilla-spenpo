@@ -5,11 +5,16 @@ const RESTRICTED_ATTRIBUTES = [
 
 const Sven = {
     root: document.body,
-    createElement (tag, props = {}) {
+    createElement (tree) {
+        if (['string', 'number'].includes(typeof tree)) {
+            return document.createTextNode(tree)
+        }
+
+        const { tag, props = {} } = tree
+
         if (typeof tag === 'function') {
-            const tree = tag(props)
-            this.render(tree)
-            return
+            const component = tag(props)
+            return this.render(component)
         }
         
         const element = document.createElement(tag)
@@ -43,7 +48,7 @@ const Sven = {
 
         // Traverse through the pointer levels except the last one
         for (let i = 0; i < this.traversalPointer.length - 1; i++) {
-            currentNode = currentNode?.children[this.traversalPointer[i]];
+            currentNode = currentNode.props.children[this.traversalPointer[i]];
             
             // Ensure the node exists
             if (!currentNode) {
@@ -72,15 +77,15 @@ const Sven = {
         const lastPointer = this.getLastTraversalPointer()
 
         // Update or create the node at the final level
-        if (currentNode.children[lastPointer]) {
+        if (currentNode.props.children[lastPointer]) {
             // Merge existing node with new tree
-            currentNode.children[lastPointer] = {
-                ...currentNode.children[lastPointer],
+            currentNode.props.children[lastPointer] = {
+                ...currentNode.props.children[lastPointer],
                 ...tree
             };
         } else {
             // Create new node if it doesn't exist
-            currentNode.children[lastPointer] = tree;
+            currentNode.props.children[lastPointer] = tree;
         }
     },
 
@@ -90,15 +95,7 @@ const Sven = {
     },
 
     render (tree, isRerender = false) {
-        let element;
-
-        if (['string', 'number'].includes(typeof tree)) {
-            element = document.createTextNode(tree)
-        }
-
-        const { tag, props = {} } = tree
-
-        if (!element) element = this.createElement(tag, props)
+        const  element = this.createElement(tree)
         if (!element) return
         
         if (isRerender) {
@@ -110,16 +107,18 @@ const Sven = {
             this.root.appendChild(element)
         }
 
-        // this.updateTree(tree)
+        this.updateTree(tree)
         
         this.traversalPointer.push(0)
         this.root = element
-        props.children?.forEach((child, idx) => {
+        tree.props?.children?.forEach((child, idx) => {
             this.traversalPointer[this.traversalPointer.length - 1] = idx
-            this.render(child)
+            this.render(child, isRerender)
         })
         this.traversalPointer.pop()
         this.root = element.parentElement
+        console.log(this.tree);
+        
     }
 }
 

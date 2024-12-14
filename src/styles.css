@@ -24,7 +24,7 @@ h1, h2 {
     background-color: #ccc;
 }
 
-[class^="spenpo-link-"] {
+.spenpo-link {
     background-color: #00afaf;
     color: #404040;
     padding: 10px;

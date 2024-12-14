@@ -8,25 +8,35 @@ import { Nest } from './components/nest.js';
 Sven.createRoot(document.getElementById('vanilla-spenpo-root'));
 
 const routes = [
-    { path: '/', tag: StaticPage, props: {
-        slug: 'welcome'
+    { path: '/', component: {
+        tag: StaticPage, props: {
+            slug: 'welcome'
+        }
     }},
-    { path: '/about', tag: StaticPage, props: {
-        slug: 'about'
+    { path: '/about', component: {
+        tag: StaticPage, props: {
+            slug: 'about'
+        }
     }},
-    { path: '/work', tag: StaticPage, props: {
-        slug: 'projects'
+    { path: '/work', component: {
+        tag: StaticPage, props: {
+            slug: 'projects'
+        }
     }},
-    { path: '/now', tag: StaticPage, props: {
-        slug: 'now'
+    { path: '/now', component: {
+        tag: StaticPage, props: {
+            slug: 'now'
+        }
     }},
-    { path: '/nest', tag: Nest },
+    { path: '/nest', component: {
+        tag: Nest 
+    }}
 ];
 
 const Body = {
     value: undefined,
     reEvaluate: (newPath) => {
-        Body.value = routes.find(route => route.path === newPath)
+        Body.value = routes.find(route => route.path === newPath).component
     }
 };
 
