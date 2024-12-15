@@ -1,6 +1,6 @@
 const Router = {
     currentPath: window.location.pathname,
-    subscribers: [], // Components to notify on navigation
+    subscribers: {}, // Components to notify on navigation
   
     // Navigate to a new path
     navigate(path) {
@@ -10,13 +10,13 @@ const Router = {
     },
   
     // Subscribe a component to updates
-    subscribe(callback) {
-      this.subscribers.push(callback);
+    subscribe(callback, key) {
+      this.subscribers[key] = callback;
     },
   
     // Notify subscribers of changes
     notifySubscribers() {
-        this.subscribers.forEach(callback => callback(this.currentPath));
+        Object.values(this.subscribers).forEach(callback => callback(this.currentPath));
     }
 }
 

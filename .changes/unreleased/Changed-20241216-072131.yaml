@@ -1,0 +1,4 @@
+kind: Changed
+body: refactor router subscribers to object instead of array. subscribe method now
+  requires a key parameter to avoid duplicating subscribers due to rerenders
+time: 2024-12-16T07:21:31.471657+08:00

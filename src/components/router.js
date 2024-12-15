@@ -5,16 +5,14 @@ const getRoute = (routes, path) => {
     return routes.find(route => route.props.path === path)
 }
 
-export const BrowserRouter = ({ children }) => {
-    console.log(children);
-    
+export const BrowserRouter = ({ children, key }) => {
     const [body, setBody] = useState(getRoute(children, Router.currentPath))
 
     Router.subscribe((path) => {
         setBody(
             getRoute(children, path)
         )
-    })
+    }, key)
 
     return {
         tag: 'div',

@@ -100,7 +100,8 @@ export const App = () => {
                 {
                     tag: BrowserRouter,
                     props: {
-                        children: routes
+                        children: routes,
+                        key: 'root-router'
                     }
                 },
             ]
