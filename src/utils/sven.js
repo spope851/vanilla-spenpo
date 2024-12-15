@@ -7,14 +7,30 @@ const Sven = {
     root: document.body,
     createElement (tree) {
         if (['string', 'number'].includes(typeof tree)) {
-            return document.createTextNode(tree)
+            return document.createTextNode(String(tree))
         }
 
         const { tag, props = {} } = tree
 
         if (typeof tag === 'function') {
-            const component = tag(props)
-            return this.render(component)
+            try {
+                const component = tag(props)
+                this.render(component)
+                return
+            } catch ({ promise, key }) {
+                promise.then(res => {
+                    promiseCache.set(key, res)
+                    this.rerender(this.tree)
+                })
+                
+                return this.render({
+                    tag: 'p',
+                    props: {
+                        style: "margin: 20px",
+                        children: ["one moment please..."]
+                    }
+                })
+            }
         }
         
         const element = document.createElement(tag)
@@ -31,11 +47,14 @@ const Sven = {
             else element.setAttribute(name, value)
         })
 
-        // RESTRICTED_ATTRIBUTES.forEach(attr => {
-        //     if (props[attr]) {
-        //         element[attr] = props[attr]
-        //     }
-        // })
+        RESTRICTED_ATTRIBUTES.forEach(attr => {
+            if (props[attr]) {
+                switch (attr) {
+                    case "children": return
+                    default: element[attr] = props[attr]
+                }
+            }
+        })
     
         return element
     },
@@ -89,37 +108,79 @@ const Sven = {
         }
     },
 
+    trueRoot: null,
     createRoot (element) {
         this.root = element
+        this.trueRoot = element.id
+        
         return element
     },
 
-    render (tree, isRerender = false) {
+    render (tree) {
+        // this.updateTree(tree)
+        if (!this.tree) this.tree = tree
+
         const  element = this.createElement(tree)
         if (!element) return
         
-        if (isRerender) {
-            const currentNode = this.getCurrentTraversalNode()
-            const lastPointer = this.getLastTraversalPointer()
-            const childToReplace = this.root.childNodes[lastPointer || 0]
-            this.root.replaceChild(element, childToReplace)
-        } else {
-            this.root.appendChild(element)
-        }
-
-        this.updateTree(tree)
+        this.root.appendChild(element)
         
         this.traversalPointer.push(0)
         this.root = element
+
         tree.props?.children?.forEach((child, idx) => {
             this.traversalPointer[this.traversalPointer.length - 1] = idx
-            this.render(child, isRerender)
+            this.render(child)
         })
+        
         this.traversalPointer.pop()
         this.root = element.parentElement
-        console.log(this.tree);
-        
+        if (this.root.id === this.trueRoot) {
+            stateCursor = 0
+        }
+    },
+
+    rerender (tree) {
+        // const currentNode = this.getCurrentTraversalNode()
+        // const lastPointer = this.getLastTraversalPointer()
+        // const childToReplace = this.root.childNodes[lastPointer || 0]
+        // this.root.replaceChild(element, childToReplace)
+        this.root.innerHTML = ''
+        this.render(tree)
+    }
+}
+
+const states = []
+let stateCursor = 0
+
+const useState = (initialState) => {
+    const FROZEN_CURSOR = stateCursor
+    let state = states[FROZEN_CURSOR] || initialState
+    states[FROZEN_CURSOR] = state
+
+    const setState = (newState) => {
+        state = newState
+        states[FROZEN_CURSOR] = newState
+        Sven.rerender(Sven.tree)
+    }
+
+    stateCursor += 1
+
+    return [state, setState]
+}
+
+const promiseCache = new Map()
+
+const wrapPromise = (promise, key) => {
+    if (promiseCache.get(key)) {
+        return promiseCache.get(key)
+    } else {
+        throw { promise, key }
     }
 }
 
 export default Sven
+export {
+    useState,
+    wrapPromise
+}

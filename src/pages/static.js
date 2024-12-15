@@ -1,26 +1,18 @@
+import { wrapPromise } from "../utils/sven.js";
+
 const LOADING = `<div class="loading"></div`
 
 export const StaticPage = ({ slug }) => {
-    let state;
-    const content = {
+    const innerHTML = wrapPromise(fetch(`/api/page?slug=${slug}`).then(async res => {
+        const page = await res.json()
+        return `<h2>${page.title.rendered}</h2>` + page.content.rendered
+    }), `${slug}-page`)
+
+    return {
         tag: 'div',
         props: {
                 class: "content",
-                DOMContentLoaded: async () => {
-                    content.props.innerHTML = LOADING
-                    
-                    const res = state || await fetch(`/api/page?slug=${slug}`).then(async res => {
-                        const page = await res.json()
-                        console.log(page);
-                        
-                        state = `<h2>${page.title.rendered}</h2>` + page.content.rendered
-                        return state
-                    })
-                    
-                    content.props.innerHTML = res
-                }
-        },
+                innerHTML
+        }
     }
-    
-    return content
 }

@@ -15,7 +15,7 @@ export const NavBar = ({ active }) => {
         'about',
         'now',
         'work',
-        'nest',
+        'demo',
         // 'blog',
         // 'contact'
     ];

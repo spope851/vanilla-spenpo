@@ -1,7 +1,7 @@
 export const Nest = () => ({
     tag: 'div',
     props: {
-        style: 'outline: solid red; padding: 20px; margin: 20px; display: flex; gap: 20px;',
+        style: 'outline: solid red; padding: 20px; display: flex; gap: 20px;',
         children: [
             {
                 tag: 'div',
