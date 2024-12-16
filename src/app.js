@@ -16,70 +16,47 @@ const Route = ({
     }
 }
 
+const routeProps = [
+    {
+        path: '/',
+        slug: 'welcome'
+    },
+    {
+        path: '/about',
+        slug: 'about'
+    },
+    {
+        path: '/work',
+        slug: 'projects'
+    },
+    {
+        path: '/now',
+        slug: 'now'
+    },
+]
+
 const routes = [
-    { 
+    ...routeProps.map(({ path, slug }) => ({ 
         tag: Route,
         props: {
-            path: '/', 
+            path, 
             children: [
                 {
-                    tag: StaticPage, 
+                    tag: StaticPage,
                     props: {
-                        slug: 'welcome'
+                        slug
                     }
                 }
             ]
         }
-    },
-    { 
-        tag: Route,
-        props: {
-            path: '/about', 
-            children: [
-                {
-                    tag: StaticPage, 
-                    props: {
-                        slug: 'about'
-                    }
-                }
-            ]
-        }
-    },
-    { 
-        tag: Route,
-        props: {
-            path: '/work', 
-            children: [
-                {
-                    tag: StaticPage, 
-                    props: {
-                        slug: 'projects'
-                    }
-                }
-            ]
-        }
-    },
-    { 
-        tag: Route,
-        props: {
-            path: '/now', 
-            children: [
-                {
-                    tag: StaticPage, 
-                    props: {
-                        slug: 'now'
-                    }
-                }
-            ]
-        }
-    },
+    })),
     { 
         tag: Route,
         props: {
             path: '/demo', 
             children: [
                 {
-                    tag: Demo 
+                    tag: Demo
                 }
             ]
         }

@@ -17,17 +17,16 @@ const Sven = {
                 const component = tag(props)
                 this.render(component)
                 return
-            } catch ({ promise, key }) {
+            } catch ({ promise, key, loadingState: innerHTML }) {
                 promise.then(res => {
                     promiseCache.set(key, res)
                     this.rerender(this.tree)
                 })
                 
                 return this.render({
-                    tag: 'p',
+                    tag: 'div',
                     props: {
-                        style: "margin: 20px",
-                        children: ["one moment please..."]
+                        innerHTML
                     }
                 })
             }
@@ -171,11 +170,11 @@ const useState = (initialState) => {
 
 const promiseCache = new Map()
 
-const wrapPromise = (promise, key) => {
+const wrapPromise = (asyncFn, key, loadingState = "one moment please...") => {
     if (promiseCache.get(key)) {
         return promiseCache.get(key)
     } else {
-        throw { promise, key }
+        throw { promise: asyncFn(), key, loadingState }
     }
 }
 
