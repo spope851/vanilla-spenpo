@@ -21,6 +21,7 @@ const Sven = {
                 promise.then(res => {
                     promiseCache.set(key, res)
                     this.rerender(this.tree)
+                    return
                 })
                 
                 return this.render({

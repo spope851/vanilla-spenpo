@@ -1,4 +1,4 @@
-import { Router } from "../utils/router.js"
+import { navigate } from "../utils/router.js"
 
 export const Link = ({ href, title, children, active, ...props }) => ({
     tag: 'a',
@@ -7,7 +7,7 @@ export const Link = ({ href, title, children, active, ...props }) => ({
         class: `spenpo-link${active ? ' active' : ''}`,
         click: (e) => {
             e.preventDefault()
-            Router.navigate(`/${href}`)
+            navigate(`/${href}`)
         },
         children: [ ...children || title || href ],
         ...props

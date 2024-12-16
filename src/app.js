@@ -1,8 +1,9 @@
 import { NavBar } from './components/nav.js';
 import { StaticPage } from './pages/static.js';
 import { Demo } from './components/demo/index.js';
-import { Router } from './utils/router.js';
+import Router from './utils/router.js';
 import { BrowserRouter } from './components/router.js';
+import { Blog } from './pages/blog.js';
 
 const Route = ({
     children,
@@ -57,6 +58,17 @@ const routes = [
             children: [
                 {
                     tag: Demo
+                }
+            ]
+        }
+    },
+    { 
+        tag: Route,
+        props: {
+            path: '/blog', 
+            children: [
+                {
+                    tag: Blog
                 }
             ]
         }

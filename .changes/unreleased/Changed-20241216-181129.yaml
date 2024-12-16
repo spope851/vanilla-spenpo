@@ -1,0 +1,3 @@
+kind: Changed
+body: changed Router obj to default export. moved navigate method to named export
+time: 2024-12-16T18:11:29.626055+08:00

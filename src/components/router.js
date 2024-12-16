@@ -1,8 +1,9 @@
-import { Router } from '../utils/router.js';
+import Router from '../utils/router.js';
 import { useState } from '../utils/sven.js';
 
 const getRoute = (routes, path) => {
-    return routes.find(route => route.props.path === path)
+    const mypath = path.split('?')[0]
+    return routes.find(route => route.props.path === mypath)
 }
 
 export const BrowserRouter = ({ children, key }) => {

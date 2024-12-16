@@ -2,13 +2,6 @@ const Router = {
     currentPath: window.location.pathname,
     subscribers: {}, // Components to notify on navigation
   
-    // Navigate to a new path
-    navigate(path) {
-      this.currentPath = path;
-      updateURL(path);
-      this.notifySubscribers();
-    },
-  
     // Subscribe a component to updates
     subscribe(callback, key) {
       this.subscribers[key] = callback;
@@ -25,6 +18,13 @@ const updateURL = (pathName) => {
     window.history.pushState({path:newurl},'',newurl);
 }
 
+const navigate = (path) => {
+  Router.currentPath = path;
+  updateURL(path);
+  Router.notifySubscribers();
+}
+
+export default Router
 export {
-    Router
+    navigate
 }

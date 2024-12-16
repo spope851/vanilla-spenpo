@@ -12,10 +12,11 @@ h1, h2 {
 
 .navList {
     display: flex;
-    justify-content: space-evenly;
+    justify-content: flex-end;
+    gap: 20px;
     flex-grow: 1;
     list-style: none;
-    padding: 10px;
+    padding: 10px 20px;
 }
 
 .navList li {
@@ -28,7 +29,7 @@ h1, h2 {
     background-color: #ccc;
 }
 
-.spenpo-link {
+.navBar .navList li .spenpo-link, #nav-home-btn.spenpo-link {
     background-color: var(--primary);
     color: #404040;
     padding: 10px;
@@ -36,15 +37,15 @@ h1, h2 {
     text-decoration: none;
 }
 
-.active {
+.navBar .active {
     outline: solid 1px #ffffff;
 }
 
-.navBar a.active h1, .navBar a.active {
+.navBar a.active h1, .navBar .navList a.active {
     color: #ffffff;
 }
 
-#nav-home-btn {
+#nav-home-btn.spenpo-link {
     border-radius: 0px;
 }
 
@@ -55,6 +56,9 @@ h1, h2 {
 
 .content {
     padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .loading {
@@ -75,4 +79,19 @@ h1, h2 {
       transform: rotate(360deg);
     }
 }
+
+.blog-home-post {
+    display: flex; justify-content: space-between; align-items: baseline;
+}
   
+.pagination-container {
+    display: flex; flex-direction: column; gap: 10px; margin: auto; padding: 20px;
+}
+
+.pagination-buttons-container {
+    display: flex; gap: 20px;
+}
+
+.pagination-count {
+    margin: auto;
+}
