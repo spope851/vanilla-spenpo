@@ -1,0 +1,3 @@
+kind: Changed
+body: switched routes to rewrites in vercel.json
+time: 2024-12-16T09:30:50.25945+08:00
