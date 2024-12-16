@@ -1,20 +1,21 @@
 const fs = require('fs');
 
 const isProduction = process.env.VERCEL_ENV === 'production';
+const BUILD_ROOT = isProduction ? "" : "/dist"
 
 const vercelConfig = {
-  rewrites: [
+  routes: [
     {
-      source: "/api/(.*)",
-      destination: "/api/$1.js"
+      "src": "/api/(.*)",
+      "dest": "/api/$1.js"
     },
     {
-      source: "/(.*\.js|css|ico|png|jpg|svg|woff2?|ttf)",
-      destination: "/dist/$1"
+      "src": "^/(.*\\.(js|css|ico|png|jpg|svg|woff2?|ttf))$",
+      "dest": BUILD_ROOT + "/$1"
     },
     {
-      source: "/(.*)",
-      destination: "/dist/index.html"
+      "src": "^/(.*)",
+      "dest": BUILD_ROOT + "/index.html"
     }
   ],
   builds: isProduction
