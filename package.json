@@ -9,7 +9,8 @@
     "build": "webpack --mode production",
     "prepare:dev": "node scripts/prepareVercelConfig.cjs",
     "prepare:commit": "VERCEL_ENV=production node scripts/prepareVercelConfig.cjs",
-    "start": "rm -rf dist && pnpm build && vercel dev --debug"
+    "start": "rm -rf dist && pnpm build && vercel dev --debug",
+    "prepare": "husky"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,7 @@
     "babel-loader": "^9.2.1",
     "css-loader": "^7.1.2",
     "html-webpack-plugin": "^5.6.3",
+    "husky": "^9.1.7",
     "mini-css-extract-plugin": "^2.9.2",
     "style-loader": "^4.0.0",
     "webpack": "^5.97.1",
