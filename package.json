@@ -12,7 +12,7 @@
     "start": "rm -rf dist && pnpm build && vercel dev --debug"
   },
   "lint-staged": {
-    "*.js": ["pnpm prepare:commit"]
+    "**/*.(json)": ["pnpm prepare:commit"]
   },
   "keywords": [],
   "author": "",
