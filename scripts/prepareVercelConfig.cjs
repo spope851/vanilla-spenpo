@@ -13,7 +13,7 @@ const vercelConfig = {
       "dest": "/dist/$1"
     },
     {
-      "src": "^/(.*)",
+      "src": "^(?!/api/).*",
       "dest": "/dist/index.html"
     }
   ],
