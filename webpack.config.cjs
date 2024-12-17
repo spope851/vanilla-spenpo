@@ -10,6 +10,7 @@ module.exports = (_env, argv) => {
     entry: './src/index.js',
     output: {
       path: path.resolve(__dirname, 'dist'),
+      publicPath: '/', // Ensures all asset paths are absolute
       filename: 'bundle.js',
       clean: true
     },

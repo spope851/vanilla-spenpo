@@ -4,6 +4,7 @@ import { Demo } from './components/demo/index.js';
 import Router from './utils/router.js';
 import { BrowserRouter } from './components/router.js';
 import { Blog } from './pages/blog.js';
+import { BlogPost } from './pages/blogpost.js';
 
 const Route = ({
     children,
@@ -69,6 +70,17 @@ const routes = [
             children: [
                 {
                     tag: Blog
+                }
+            ]
+        }
+    },
+    { 
+        tag: Route,
+        props: {
+            path: '/blog/:id', 
+            children: [
+                {
+                    tag: BlogPost
                 }
             ]
         }

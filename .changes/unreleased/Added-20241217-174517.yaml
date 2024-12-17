@@ -1,0 +1,3 @@
+kind: Added
+body: support for wildcards via colon (:) in BrowserRouter path property
+time: 2024-12-17T17:45:17.334732+08:00

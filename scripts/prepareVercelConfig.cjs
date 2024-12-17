@@ -6,8 +6,12 @@ const BUILD_ROOT = isProduction ? "" : "/dist"
 const vercelConfig = {
   routes: [
     {
+      "src": "/api/([^/]+)/([^/]+)",
+      "dest": "/api/$1/[id].js?id=$2"
+    },
+    {
       "src": "/api/(.*)",
-      "dest": "/api/$1.js"
+      "dest": "/api/$1/index.js"
     },
     {
       "src": "^/(.*\\.(js|css|ico|png|jpg|svg|woff2?|ttf))$",
