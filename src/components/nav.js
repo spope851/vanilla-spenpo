@@ -7,7 +7,24 @@ export const NavBar = ({ active }) => {
             href: '',
             id: 'nav-home-btn',
             active: active === '/',
-            children: [{ tag: 'h1', props: { children: ['Spencer Pope'] } }],
+            children: [
+                {
+                    tag: 'h1',
+                    props: {
+                        class: 'logo',
+                        children: ['Spencer Pope']
+                    }
+                },
+                {
+                    tag: 'img',
+                    props: {
+                        src: '../favicon.ico',
+                        class: 'mobile-logo',
+                        alt: 'mobile-logo',
+                        height: 50
+                    }
+                }
+            ],
         },
     }
 
