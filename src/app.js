@@ -1,20 +1,24 @@
 import { NavBar } from './components/nav.js';
 import { StaticPage } from './pages/static.js';
-import { Demo } from './components/demo/index.js';
 import Router from './utils/router.js';
 import { BrowserRouter } from './components/router.js';
 import { Blog } from './pages/blog.js';
 import { BlogPost } from './pages/blogpost.js';
+import { Projects } from './pages/work.js';
+import { Demo } from './components/demo/index.js';
 
-const Route = ({
-    children,
-    // path
-}) => {
-    // console.log(`rendering ${path}`)
-    
+const Route = ({ children, ...rest }) => {
     return {
         tag: 'div',
-        props: { children }
+        props: {
+            children: children.map(({ tag, props }) => ({
+                tag,
+                props: {
+                    ...rest,
+                    ...props,
+                }
+            }))
+        }
     }
 }
 
@@ -26,10 +30,6 @@ const routeProps = [
     {
         path: '/about',
         slug: 'about'
-    },
-    {
-        path: '/work',
-        slug: 'projects'
     },
     {
         path: '/now',
@@ -55,7 +55,18 @@ const routes = [
     { 
         tag: Route,
         props: {
-            path: '/demo', 
+            path: '/projects', 
+            children: [
+                {
+                    tag: Projects
+                }
+            ]
+        }
+    },
+    { 
+        tag: Route,
+        props: {
+            path: '/projects/:id', 
             children: [
                 {
                     tag: Demo

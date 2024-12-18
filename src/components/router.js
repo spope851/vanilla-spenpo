@@ -3,9 +3,11 @@ import { useState } from '../utils/sven.js';
 
 const getRoute = (routes, path) => {
     const pathname = path.split('?')[0]
-    return routes.find(route => {
-        const regexString = route.props.path.split('/').map(segment => {
+    let props = {}
+    const Component = routes.find(route => {
+        const regexString = route.props.path.split('/').map((segment, idx) => {
             if (segment.startsWith(":")) {
+                props[segment.split(":")[1]] = pathname.split('/')[idx]
                 // Convert wildcard segments to match any value
                 return ".*"; // Match any characters
             }
@@ -15,6 +17,14 @@ const getRoute = (routes, path) => {
         const regex = new RegExp(`^${regexString}$`); // Anchor to start and end of string
         return regex.test(pathname);
     })
+
+    return {
+        ...Component,
+        props: {
+            ...Component.props,
+            ...props
+        }
+    }
 }
 
 export const BrowserRouter = ({ children, key }) => {

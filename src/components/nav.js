@@ -14,8 +14,7 @@ export const NavBar = ({ active }) => {
     const pages = [
         'about',
         'now',
-        'work',
-        'demo',
+        'projects',
         'blog',
         // 'contact'
     ];
